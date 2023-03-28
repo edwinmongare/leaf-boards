@@ -162,7 +162,7 @@ const Dashboard = () => {
           <i className={`pi pi-clock text-xl text-blue-400`} />
          </div>
          <span className="text-900 text-black font-bold line-height-3">
-          Time : {format(new Date(item.time_inserted), 'HH:mm')}
+          Time : {format(new Date(item.time_inserted), 'HH:mm:ss')}
          </span>
         </li>
         <li className="flex align-items-center py-0 border-bottom-1 surface-border">
