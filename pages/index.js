@@ -68,7 +68,7 @@ const Dashboard = () => {
          />
         </div>
         <span className="text-900 text-white font-bold line-height-3">
-         Time : {format(new Date(item.TIME_INSERTED), 'HH:mm:ss')}
+         Time : {format(new Date(item.TIME_INSERTED), 'HH:mm')}
         </span>
        </li>
        <li className="flex align-items-center py-1 border-bottom-1 surface-border">

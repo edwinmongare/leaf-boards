@@ -79,7 +79,7 @@ const AppMenu = () => {
        >
         <ul className="p-0 mx-0 mt-0 mb-1 list-none">
          <li className="flex align-items-center py-0 border-bottom-1 surface-border">
-          <div className="w-2rem h-2rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+          <div className="w-1rem h-1rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
            <i className="pi pi-clock text-xl text-blue-500" />
           </div>
 
@@ -88,35 +88,67 @@ const AppMenu = () => {
           </span>
          </li>
          <li className="flex align-items-center py-1 border-bottom-1 surface-border">
-          <div className="w-2rem h-2rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
+          <div className="w-1rem h-1rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
            <i className="pi pi-box text-xl text-blue-500" />
           </div>
           <span className="text-900 font-semibold line-height-3">Grade:</span>
           <span className="text-900 font-semibold line-height-3">{item.RUNNING_GRADE}</span>
          </li>
-         {/* <li className="flex align-items-center py-1 border-bottom-1 surface-border">
-          <div className="w-2rem h-2rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-           <i className="pi pi-chart-line text-xl text-blue-500" />
-          </div>
-          <span className="text-900 font-semibold line-height-3">
-           Process Code: {item.PROCESS_CODE}
-          </span>
-         </li> */}
-
+        </ul>
+       </motion.div>
+      ))}
+     </div>
+    </div>
+    <div className="col-12 xl:col-12 mt-0">
+     <div className="card shadow-3">
+      {combinedData.map((item) => (
+       <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 2.5 }}
+       >
+        <ul className="p-0 mx-0 mt-0  list-none">
          <li className="flex align-items-center py-1 border-bottom-1 surface-border">
-          <div className="w-2rem h-2rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-           <i className="pi pi-chart-line text-xl text-blue-500" />
+          <div
+           className={`w-1rem h-1rem flex align-items-center justify-content-center bg-${
+            item.mean >= 13.2 && item.mean <= 13.8 ? '' : item.mean < 13.2 ? 'green' : 'red'
+           }-100 border-circle mr-3 flex-shrink-0`}
+          >
+           <i
+            className={`pi pi-chart-line text-xl text-${
+             item.mean >= 13.2 && item.mean <= 13.8 ? '' : item.mean < 13.2 ? 'green' : 'red'
+            }-500`}
+           />
           </div>
-          <span className="text-900 font-semibold line-height-3">
+          <span
+           className={`text-900 font-semibold line-height-3 ${
+            item.mean >= 13.2 && item.mean <= 13.8
+             ? ''
+             : item.mean < 13.2
+             ? 'text-green-500'
+             : 'text-red-500'
+           }`}
+          >
            Moisture Mean: {item.mean?.toFixed(2)}
           </span>
          </li>
-
          <li className="flex align-items-center py-1 border-bottom-1 surface-border">
-          <div className="w-2rem h-2rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-           <i className="pi pi-chart-bar text-xl text-blue-500" />
+          <div
+           className={`w-1rem h-1rem flex align-items-center justify-content-center bg-${
+            item.sd > 0.16 ? 'text-red-500' : 'text-green-500'
+           }-100 border-circle mr-3 flex-shrink-0`}
+          >
+           <i
+            className={`pi pi-chart-bar text-xl text-blue-500 ${
+             item.sd > 0.16 ? 'text-red-500' : 'text-green-500'
+            }`}
+           />
           </div>
-          <span className="text-900 font-semibold line-height-3">
+          <span
+           className={`text-900 font-semibold line-height-3 ${
+            item.sd > 0.16 ? 'text-red-500' : 'text-green-500'
+           }`}
+          >
            Moisture SD : {item.sd?.toFixed(2)}
           </span>
          </li>

@@ -8,6 +8,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { apiDevUrl, apiProductionUrl } from '../../../apiConfig';
 
 const QualityTrigger = () => {
  const toast = useRef(null);
@@ -41,11 +42,8 @@ const QualityTrigger = () => {
   onSubmit: async (values, { setSubmitting, resetForm }) => {
    try {
     values.Q8 = updateQ8();
-    values.Q9 = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-    const response = await axios.post(
-     'http://localhost:8080/api/getData/postQualityTrigger',
-     values
-    );
+    values.Q9 = format(new Date(), 'yyyy-MM-dd HH:mm');
+    const response = await axios.post(`${apiDevUrl}postQualityTrigger`, values);
     console.log(response.data, 'response from api');
     if (response.status === 200) {
      toast.current.show({
