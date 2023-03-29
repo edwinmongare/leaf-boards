@@ -21,8 +21,8 @@ const Dashboard = () => {
 
  useEffect(() => {
   Promise.all([
-   axios.get(`${apiDevUrl}degblueationv1`, { params: { lastUpdate } }),
-   axios.get(`${apiDevUrl}degblueationv2`, { params: { lastUpdate } })
+   axios.get(`${apiDevUrl}degredationv1`, { params: { lastUpdate } }),
+   axios.get(`${apiDevUrl}degredationv2`, { params: { lastUpdate } })
   ])
    .then(([response1, response2]) => {
     setv1(response1.data);

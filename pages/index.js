@@ -67,7 +67,7 @@ const Dashboard = () => {
           className={`pi pi-clock text-xl text-${getMoistureStatus(item.MOISTURE).iconColor}-400`}
          />
         </div>
-        <span className="text-900 text-white font-bold line-height-3">
+        <span className="text-200  text-white font-bold line-height-3">
          Time : {format(new Date(item.TIME_INSERTED), 'HH:mm')}
         </span>
        </li>

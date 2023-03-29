@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { apiDevUrl, apiProductionUrl } from '../../../apiConfig';
@@ -23,7 +23,7 @@ const QualityTrigger = () => {
   Q7: Yup.string().required('yes or No answer required'),
   Q8: Yup.string().required('yes or No answer required'),
   Q9: Yup.date().required('Date and time required'),
-  Q10: Yup.string()
+  Q10: Yup.string().notRequired()
  });
  const formik = useFormik({
   initialValues: {
@@ -255,7 +255,13 @@ const QualityTrigger = () => {
            <label className="mt-0" htmlFor="Q10">
             8. Kindly enter the reason for the setting a high quality trigger
            </label>
-           <InputText name="Q10" id="Q10" className="field" value={formik.values.Q10} type="text" />
+           <InputText
+            className="field"
+            id="Q10"
+            name="Q10"
+            value={formik.values.Q10}
+            onChange={formik.handleChange}
+           />
           </div>
          ) : null}
         </div>

@@ -15,10 +15,10 @@ package-lock.json
 
 tsconfig.tsbuildinfo
 
-# production
-/build
-/idea
-/.idea
+# # production
+# /build
+# /idea
+# /.idea
 
 # misc
 .DS_Store

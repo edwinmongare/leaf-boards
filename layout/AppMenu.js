@@ -13,6 +13,7 @@ const AppMenu = () => {
  const [meanData, setMeanData] = useState([]);
  const [lastUpdate, setLastUpdate] = useState(Date.now());
  const [triggerStatus, setTriggerStatus] = useState([]);
+ const [safetyTriggerStatus, setSafetyTriggerStatus] = useState([]);
 
  useEffect(() => {
   const interval = setInterval(() => {
@@ -66,6 +67,19 @@ const AppMenu = () => {
    });
  }, [lastUpdate]);
 
+ useEffect(() => {
+  axios
+   .get(`${apiDevUrl}getSafetyTrigger`, {
+    params: { lastUpdate }
+   })
+   .then((response) => {
+    setSafetyTriggerStatus(response.data);
+   })
+   .catch((error) => {
+    console.log(error);
+   });
+ }, [lastUpdate]);
+
  return (
   <MenuProvider>
    <div className="grid">
@@ -83,7 +97,7 @@ const AppMenu = () => {
            <i className="pi pi-clock text-xl text-blue-500" />
           </div>
 
-          <span className="text-900 font-semibold line-height-3">
+          <span className="text-900 font-bold line-height-3">
            Date: {format(new Date(item.DATE), 'dd MMM yyyy')}
           </span>
          </li>
@@ -91,8 +105,8 @@ const AppMenu = () => {
           <div className="w-1rem h-1rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
            <i className="pi pi-box text-xl text-blue-500" />
           </div>
-          <span className="text-900 font-semibold line-height-3">Grade:</span>
-          <span className="text-900 font-semibold line-height-3">{item.RUNNING_GRADE}</span>
+          <span className="text-900 font-bold line-height-3">Grade:</span>
+          <span className="text-900 font-bold line-height-3">{item.RUNNING_GRADE}</span>
          </li>
         </ul>
        </motion.div>
@@ -112,21 +126,21 @@ const AppMenu = () => {
           <div
            className={`w-1rem h-1rem flex align-items-center justify-content-center bg-${
             item.mean >= 13.2 && item.mean <= 13.8 ? '' : item.mean < 13.2 ? 'green' : 'red'
-           }-100 border-circle mr-3 flex-shrink-0`}
+           }700 border-circle mr-3 flex-shrink-0`}
           >
            <i
             className={`pi pi-chart-line text-xl text-${
              item.mean >= 13.2 && item.mean <= 13.8 ? '' : item.mean < 13.2 ? 'green' : 'red'
-            }-500`}
+            }-700`}
            />
           </div>
           <span
-           className={`text-900 font-semibold line-height-3 ${
+           className={`text-900 font-bold line-height-3 ${
             item.mean >= 13.2 && item.mean <= 13.8
              ? ''
              : item.mean < 13.2
-             ? 'text-green-500'
-             : 'text-red-500'
+             ? 'text-green-700'
+             : 'text-red-700'
            }`}
           >
            Moisture Mean: {item.mean?.toFixed(2)}
@@ -145,7 +159,7 @@ const AppMenu = () => {
            />
           </div>
           <span
-           className={`text-900 font-semibold line-height-3 ${
+           className={`text-900 font-bold line-height-3 ${
             item.sd > 0.16 ? 'text-red-500' : 'text-green-500'
            }`}
           >
@@ -163,23 +177,23 @@ const AppMenu = () => {
      <div className="col-12 xl:col-12">
       <h3 className="text-lg subpixel-antialiased font-semibold">Safety Trigger</h3>
      </div>
-     {triggerStatus.map((item) => (
+     {safetyTriggerStatus.map((item) => (
       <span className="">
-       {item.Status === 'Low' && (
+       {item.trigger_status === 'Low' && (
         <img
          className="w-full mt-0"
          src={`${contextPath}/layout/images/traffic_lifghts/low quality.svg`}
          alt="Low Quality"
         />
        )}
-       {item.Status === 'Medium' && (
+       {item.trigger_status === 'Medium' && (
         <img
          className="w-full mt-0"
          src={`${contextPath}/layout/images/traffic_lifghts/mediuim_quality.svg`}
          alt="Medium Quality"
         />
        )}
-       {item.Status === 'High' && (
+       {item.trigger_status === 'High' && (
         <img
          className="w-full mt-0"
          src={`${contextPath}/layout/images/traffic_lifghts/high_quality.svg`}
